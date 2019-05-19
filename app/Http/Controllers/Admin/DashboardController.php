@@ -7,19 +7,21 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function dashboard($userId = null)
+    public function dashboard()
     {
-        $findUser = null;
-        $users = User::paginate(2);
-        if ($userId) {
-            $findUser = User::find($userId);
-        }
-        return view('admin.dashboard', compact('users','userId', 'findUser'));
+        $users = User::paginate(5);
+        $usersCount = User::count();
+        return view('admin.dashboard', compact('users', 'usersCount'));
     }
 
-    public function getAllUsers()
+    public function user($userId)
     {
-        return User::all();
+        $findUser = null;
+        if ($userId) {
+            $foundUser = User::find($userId);
+        }
+        return view('admin.user', compact('foundUser', 'userId'));
     }
+
 
 }

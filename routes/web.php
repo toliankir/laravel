@@ -12,11 +12,12 @@
 */
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function() {
-    Route::get('/users/{id}', 'DashboardController@dashboard')->name('dashboard.users');
-    Route::post('/users', 'DashboardController@dashboard')->name('dashboard.user_update');
-    Route::get('/users', 'DashboardController@dashboard');
+    Route::get('/users/{id}', 'DashboardController@user')->name('admin.dashboard.user');
+    Route::get('/', 'DashboardController@dashboard')->name('admin.dashboard.index');
 
 });
+Route::resource('/post', 'PostController');
+
 
 Route::get('/', function () {
     return view('welcome');
